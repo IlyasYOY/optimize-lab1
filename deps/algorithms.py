@@ -1,6 +1,6 @@
 from copy import copy, deepcopy
 
-from utils import Config, Function, Point
+from deps.utils import Config, Function, Point
 
 
 class Algorithm:

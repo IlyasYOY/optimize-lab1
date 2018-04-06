@@ -1,10 +1,10 @@
 from sys import exit
 from time import time
 
-from algorithms import ConstantStepAlgorithm, DividingStepAlgorithm, DecreasingStepAlgorithm
-from input_functions import read_step, read_precision, read_a, read_max_steps, read_algorithm, read_starting_point, \
+from deps.algorithms import ConstantStepAlgorithm, DividingStepAlgorithm, DecreasingStepAlgorithm
+from deps.input_functions import read_step, read_precision, read_a, read_max_steps, read_algorithm, read_starting_point, \
     read_print_interval
-from utils import Config, ALGORITHMS, Point, Function
+from deps.utils import Config, ALGORITHMS, Point, Function
 
 
 def main():

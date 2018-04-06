@@ -1,4 +1,4 @@
-from utils import ALGORITHMS, Point
+from deps.utils import ALGORITHMS, Point
 
 
 def read_step():
