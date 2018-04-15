@@ -4,7 +4,9 @@ ALGORITHMS = (
     'Градиентный спуск с постоянным шагом',
     'Градиентный спуск с дроблением шага',
     'Градиентный спуск с убывающим шагом',
-    'Найскорейший спуск'
+    'Найскорейший спуск',
+    'Метод Ньютона-Рафсона',
+    'Овражный метод',
 )
 
 
@@ -158,9 +160,9 @@ class Function:
                 'y': 2 * (point.y - point.x ** 2)
             },
             'second_derivative': {
-                'xx': 2 * (self.config.a + 6 * point.x - 2 * point.y),
+                'xx': 12*point.x**2 - 4*point.y + 2*self.config.a,
                 'yy': 2,
-                'xy': (2 * self.config.a - 4 * (point.y - point.x ** 2) + 8 * point.x ** 2),
-                'yx': (2 * self.config.a - 4 * (point.y - point.x ** 2) + 8 * point.x ** 2)
+                'xy': -4*point.x,
+                'yx': -4*point.x,
             }
         }
