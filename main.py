@@ -1,7 +1,7 @@
 from sys import exit
 from time import time
 
-from deps.algorithms import ConstantStepAlgorithm, DividingStepAlgorithm, DecreasingStepAlgorithm
+from deps.algorithms import *
 from deps.input_functions import read_step, read_precision, read_a, read_max_steps, read_algorithm, read_starting_point, \
     read_print_interval
 from deps.utils import Config, ALGORITHMS, Point, Function
@@ -12,7 +12,7 @@ def main():
     print('Настроим программу...')
     is_set_up = False
     # config = Config(0.1, 0.01, 1, 100, ALGORITHMS[0], Point(0.0, 0.0), 1)
-    config = Config(0.5, 0.1, 1, 1000, ALGORITHMS[0], Point(0.0, 0.0), 10)
+    config = Config(0.1, 10**(-5), 0.01, 100, ALGORITHMS[5], Point(-9.0, 0.0), 1)
     function = Function(config)
     while not is_set_up:
         print('Текущий конфиг:')
@@ -54,12 +54,20 @@ def main():
                     algorithm = DividingStepAlgorithm(config, function)
                 elif config.algorithm == ALGORITHMS[2]:
                     algorithm = DecreasingStepAlgorithm(config, function)
+                elif config.algorithm == ALGORITHMS[3]:
+                    algorithm = FastestDescendAlgorithm(config, function)
+                elif config.algorithm == ALGORITHMS[4]:
+                    algorithm = NewtonAlgorithm(config, function)
+                elif config.algorithm == ALGORITHMS[5]:
+                    algorithm = RavineAlgorithm(config, function)
+
                 start = time()
                 algorithm.run()
                 print('Заняло времени: {0:> .3}с'.format(time() - start))
             else:
                 raise Exception()
         except Exception:
+            raise
             input('Неверный ввод, для повтора нажмите любую кнопку.')
 
 
