@@ -9,7 +9,7 @@ def main():
     fire.Fire({
         "gui": lambda: gui_interface(load_config()),
         "cli": lambda: cli_interface(load_config())
-    }, 'cli')
+    }, 'gui')
 
 
 if __name__ == '__main__':
