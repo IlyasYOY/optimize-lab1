@@ -1,4 +1,4 @@
-from copy import copy, deepcopy
+import pickle
 
 ALGORITHMS = (
     'Градиентный спуск с постоянным шагом',
@@ -8,6 +8,8 @@ ALGORITHMS = (
     'Метод Ньютона-Рафсона',
     'Овражный метод',
 )
+
+CONFIG_SAVE_FILE_NAME = '.config.dump'
 
 
 class Point:
@@ -103,19 +105,6 @@ class Config:
     def print_interval(self, print_interval):
         self._print_interval = print_interval
 
-    def create_algorithm_from_config(self):
-        function = Function(self)
-        if self.algorithm == ALGORITHMS[0]:
-            return ConstantStepAlgorithm(self, function)
-        elif self.algorithm == ALGORITHMS[1]:
-            return DividingStepAlgorithm(self, function)
-        elif self.algorithm == ALGORITHMS[2]:
-            return DecreasingStepAlgorithm(self, function)
-        elif self.algorithm == ALGORITHMS[3]:
-            return FastestDescendAlgorithm(self, function)
-        else:
-            return None
-
     def __init__(self, step: float, precision: float,
                  a: float, max_steps: int, algorithm: str,
                  starting_point: Point, print_interval: int):
@@ -160,9 +149,24 @@ class Function:
                 'y': 2 * (point.y - point.x ** 2)
             },
             'second_derivative': {
-                'xx': 12*point.x**2 - 4*point.y + 2*self.config.a,
+                'xx': 12 * point.x ** 2 - 4 * point.y + 2 * self.config.a,
                 'yy': 2,
-                'xy': -4*point.x,
-                'yx': -4*point.x,
+                'xy': -4 * point.x,
+                'yx': -4 * point.x,
             }
         }
+
+
+def dump_config(config: Config):
+    with open(CONFIG_SAVE_FILE_NAME, 'wb') as file:
+        pickle.dump(config, file)
+
+
+def load_config() -> Config:
+    config = None  # type: Config
+    try:
+        with open(CONFIG_SAVE_FILE_NAME, 'rb') as file:
+            config = pickle.load(file)
+    except FileNotFoundError:
+        config = Config(0.1, 0.0001, 0.01, 100, ALGORITHMS[0], Point(0.0, 0.0), 1)
+    return config
